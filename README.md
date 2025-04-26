@@ -56,18 +56,19 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 
 1. Install [Streamer.bot](https://streamer.bot/).
 2. In Streamer.bot:
-   - Go to **Actions > C# Scripts**.
-   - Create a new C# script for each file and paste the corresponding code.
+   - Create a new **Action** for each script. Set the trigger for each Action to respond to **Twitch Chat Message** events as needed (e.g., `!askai`, passive for others).
+   - Inside each Action, add a **C# Sub-Action** and paste the corresponding script code.
+   - **Important**: For `buttsbot.cs`, you must insert your **NLP Cloud API key** into the script at the marked location (`YOUR_API_KEY_HERE`) before it will function.
 3. API Setup:
    - **askai.cs**: Install and run **GPT4All Desktop App** with server mode enabled (default port 4891).
-   - **buttsbot.cs**: Insert your **NLP Cloud API key** at the top of the script (`YOUR_API_KEY_HERE`).
+   - **buttsbot.cs**: Ensure your NLP Cloud API key is inserted correctly.
 
 ## 🔥 Requirements
 
 | Script            | Needs API Key?            | Extra Setup                         |
 |-------------------|----------------------------|-------------------------------------|
 | `askai.cs`        | ❌ No                    | GPT4All app running locally         |
-| `buttsbot.cs`     | ✅ Yes (NLP Cloud)        | Get and insert your API key         |
+| `buttsbot.cs`     | ✅ Yes (NLP Cloud)        | Insert your API key                 |
 | `markovchain.cs`  | ❌ No                    | None                                |
 | `translate.cs`    | ❌ No                    | None                                |
 
