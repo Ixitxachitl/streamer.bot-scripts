@@ -1,6 +1,6 @@
 # Streamer.bot Scripts by Ixitxachitl
 
-A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), bringing AI-powered conversations, playful chat humor, automatic translations, and dynamic text generation to your Twitch stream.
+A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), bringing AI-powered conversations, playful chat humor, automatic translations, dynamic text generation, and live weather updates to your Twitch stream.
 
 ## 📜 Available Scripts
 
@@ -52,11 +52,22 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 - **Requirements**:
   - No API key needed.
 
+### 5. `weather.cs`
+- **Purpose**: Provides live weather updates for a given city.
+- **Trigger**: `!weather cityname`
+- **Backend**:
+  - Uses the free **wttr.in** service — no API key required.
+- **Features**:
+  - Simple, fast, text-based weather retrieval.
+  - User specifies the city in chat command.
+- **Requirements**:
+  - No API key needed.
+
 ## ⚡ Setup Instructions
 
 1. Install [Streamer.bot](https://streamer.bot/).
 2. In Streamer.bot:
-   - Create a new **Action** for each script. Set the trigger for each Action to respond to **Twitch Chat Message** events as needed (e.g., `!askai`, passive for others).
+   - Create a new **Action** for each script. Set the trigger for each Action to respond to **Twitch Chat Message** events as needed (e.g., `!askai`, `!weather`, or passive for others).
    - Inside each Action, add a **C# Sub-Action** and paste the corresponding script code.
    - **Important**: For `buttsbot.cs`, you must insert your **NLP Cloud API key** into the script at the marked location (`YOUR_API_KEY_HERE`) before it will function.
 3. API Setup:
@@ -71,6 +82,7 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 | `buttsbot.cs`     | ✅ Yes (NLP Cloud)        | Insert your API key                 |
 | `markovchain.cs`  | ❌ No                    | None                                |
 | `translate.cs`    | ❌ No                    | None                                |
+| `weather.cs`      | ❌ No                    | None                                |
 
 ## 📄 License
 
