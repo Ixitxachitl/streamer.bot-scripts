@@ -1,3 +1,14 @@
+// --------------------------------------------------------------------------------------------------
+// Project: Markov Chain Chat Generator (Streamer.bot plugin)
+// Description: Learns from Twitch chat and generates random sentences using Markov chains.
+// Highlights:
+//   - Learns from user (not bot) chat only
+//   - Auto-saves and loads learned data to/from JSON
+//   - Filters out non-English and link-heavy messages
+//   - Generates a sentence every 35 valid chat messages
+// Author: Ixitxachitl
+// Date: 4/25/2025
+// --------------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.IO;
