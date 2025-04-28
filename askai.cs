@@ -8,8 +8,7 @@
 //   - Robust error handling for AI server downtime
 // Author: Ixitxachitl
 // Date: 4/25/2025
-// --------------------------------------------------------------------------------------------------
-
+// -------------------------------------------------------------------------------------------------
 using System;
 using System.Net.Http;
 using System.Text;
