@@ -1,3 +1,14 @@
+// --------------------------------------------------------------------------------------------------
+// Project: Live Weather Fetcher (Streamer.bot plugin)
+// Description: Provides current weather information for a given city on request.
+// Highlights:
+//   - Uses the free wttr.in weather service (no API key needed)
+//   - Simple and fast text-based responses
+//   - Supports any city input from Twitch chat
+//   - Lightweight with error handling for invalid cities
+// Author: Ixitxachitl
+// Date: 4/25/2025
+// --------------------------------------------------------------------------------------------------
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
