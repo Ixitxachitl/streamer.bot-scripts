@@ -1,3 +1,15 @@
+// --------------------------------------------------------------------------------------------------
+// Project: Twitch AI Chatbot (Streamer.bot plugin)
+// Description: Sends user prompts to a local GPT4All server and returns AI-generated replies.
+// Highlights:
+//   - Uses local GPT4All server (no API key needed)
+//   - Short, concise, Twitch-friendly AI responses
+//   - Automatic character limit handling (max 450 characters)
+//   - Robust error handling for AI server downtime
+// Author: Ixitxachitl
+// Date: 4/25/2025
+// --------------------------------------------------------------------------------------------------
+
 using System;
 using System.Net.Http;
 using System.Text;
