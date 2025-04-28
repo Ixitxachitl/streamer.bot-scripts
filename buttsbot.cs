@@ -1,5 +1,14 @@
-// Smart NLP Buttsbot for Streamer.bot
-// Replaces a detected noun with "butt" about 2% of the time (or always if debug mode is on), using NLP Cloud for POS tagging
+// --------------------------------------------------------------------------------------------------
+// Project: Smart NLP Buttsbot (Streamer.bot plugin)
+// Description: Randomly replaces a noun in Twitch chat messages with the word "butt".
+// Highlights:
+//   - Uses NLP Cloud API for part-of-speech tagging
+//   - 2% chance per message to trigger (configurable)
+//   - Debug mode for always-on replacements
+//   - Skips bot/self messages to avoid loops
+// Author: Ixitxachitl
+// Date: 4/25/2025
+// --------------------------------------------------------------------------------------------------
 
 using System;
 using System.Net;
