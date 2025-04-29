@@ -63,16 +63,29 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 - **Requirements**:
   - No API key needed.
 
+### 6. `clapthatbot.cs`
+- **Purpose**: Detects adjective+noun pairs in chat and posts "I'd clap that adjective noun!" or "I'd clap those adjective noun!" depending on plurality.
+- **Trigger**: Passive — listens to every chat message.
+- **Backend**:
+  - Uses **NLP Cloud API** for part-of-speech tagging.
+- **Features**:
+  - 2% chance per message (configurable).
+  - Debug mode for always triggering during testing.
+  - Detects plural nouns and adjusts phrasing automatically.
+  - Skips bot/self-messages.
+- **Requirements**:
+  - You **must** provide your **NLP Cloud API key** inside the script.
+
 ## ⚡ Setup Instructions
 
 1. Install [Streamer.bot](https://streamer.bot/).
 2. In Streamer.bot:
    - Create a new **Action** for each script. Set the trigger for each Action to respond to **Twitch Chat Message** events as needed (e.g., `!askai`, `!weather`, or passive for others).
    - Inside each Action, add a **C# Sub-Action** and paste the corresponding script code.
-   - **Important**: For `buttsbot.cs`, you must insert your **NLP Cloud API key** into the script at the marked location (`YOUR_API_KEY_HERE`) before it will function.
+   - **Important**: For `buttsbot.cs` and `clapthatbot.cs`, you must insert your **NLP Cloud API key** into the script at the marked location (`YOUR_API_KEY_HERE`) before they will function.
 3. API Setup:
    - **askai.cs**: Install and run **GPT4All Desktop App** with server mode enabled (default port 4891).
-   - **buttsbot.cs**: Ensure your NLP Cloud API key is inserted correctly.
+   - **buttsbot.cs** and **clapthatbot.cs**: Ensure your NLP Cloud API key is inserted correctly.
 
 ## 🔥 Requirements
 
@@ -83,6 +96,7 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 | `markovchain.cs`  | ❌ No                    | None                                |
 | `translate.cs`    | ❌ No                    | None                                |
 | `weather.cs`      | ❌ No                    | None                                |
+| `clapthatbot.cs`  | ✅ Yes (NLP Cloud)        | Insert your API key                 |
 
 ## 📄 License
 
@@ -92,4 +106,3 @@ MIT License — Free to use, modify, and share.
 
 Created with ❤️ by **Ixitxachitl**  
 Bringing AI and chaos to Twitch chat, one bot at a time.
-
