@@ -31,7 +31,6 @@ public class CPHInline
 
     public async Task<bool> ExecuteAsync()
     {
-        // Prevent the bot from reacting to its own messages
         var botInfo = CPH.TwitchGetBot();
         string botUsername = botInfo.UserLogin.ToLower();
         string inputUsername = args["userName"].ToString().ToLower();
@@ -55,19 +54,22 @@ public class CPHInline
 
         CPH.LogDebug("Message triggered! Analyzing text...");
 
-        List<string> nouns = await AnalyzeTextAsync(inputText);
+        List<string> words = await AnalyzeTextAsync(inputText);
 
-        if (nouns == null || nouns.Count == 0)
+        if (words == null || words.Count == 0)
         {
-            CPH.LogDebug("No nouns detected in message.");
+            CPH.LogDebug("No nouns or adjectives detected in message.");
             return true;
         }
 
-        string nounToReplace = nouns[rng.Next(nouns.Count)];
+        string wordToReplace = words[rng.Next(words.Count)];
 
-        CPH.LogDebug($"Replacing noun: {nounToReplace}");
+        CPH.LogDebug($"Replacing word: {wordToReplace}");
 
-        string funnyText = ReplaceFirstOccurrence(inputText, nounToReplace, "butt");
+        bool plural = wordToReplace.EndsWith("s", StringComparison.OrdinalIgnoreCase);
+        string replacement = plural ? "butts" : "butt";
+
+        string funnyText = ReplaceAllOccurrences(inputText, wordToReplace, replacement);
 
         CPH.LogDebug($"Sending modified message: {funnyText}");
 
@@ -103,7 +105,7 @@ public class CPHInline
                 CPH.LogDebug($"NLP Cloud raw response: {jsonResponse}");
 
                 var json = JObject.Parse(jsonResponse);
-                var nounsList = new List<string>();
+                var wordsList = new List<string>();
 
                 var words = json["words"] as JArray;
                 if (words != null)
@@ -112,15 +114,15 @@ public class CPHInline
                     {
                         string word = wordObj.Value<string>("text") ?? "";
                         string tag = wordObj.Value<string>("tag") ?? "";
-                        if (tag.StartsWith("NN")) // NN, NNS, NNP, NNPS
+                        if (tag.StartsWith("NN") || tag.StartsWith("JJ")) // Nouns or adjectives
                         {
-                            nounsList.Add(word);
-                            CPH.LogDebug($"Detected noun: {word}");
+                            wordsList.Add(word);
+                            CPH.LogDebug($"Detected word: {word}");
                         }
                     }
                 }
 
-                return nounsList;
+                return wordsList;
             }
         }
         catch (Exception ex)
@@ -130,19 +132,14 @@ public class CPHInline
         }
     }
 
-    private string ReplaceFirstOccurrence(string source, string find, string replace)
+    private string ReplaceAllOccurrences(string source, string find, string replace)
     {
-        int place = source.IndexOf(find, StringComparison.OrdinalIgnoreCase);
-        if (place == -1)
-            return source;
-
-        string result = source.Substring(0, place) + replace + source.Substring(place + find.Length);
-        return result;
-    }
-
-    private string Escape(string s)
-    {
-        return s.Replace("%", "%25").Replace("&", "%26").Replace("=", "%3D").Replace("+", "%2B").Replace(" ", "+");
+        return System.Text.RegularExpressions.Regex.Replace(
+            source,
+            $"\\b{System.Text.RegularExpressions.Regex.Escape(find)}\\b",
+            replace,
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
     }
 
     private string EscapeJson(string s)
