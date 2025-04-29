@@ -63,7 +63,7 @@ A collection of powerful C# scripts for [Streamer.bot](https://streamer.bot/), b
 - **Requirements**:
   - No API key needed.
 
-### 6. `clapthatbot.cs`
+### 6. `og_softbot.cs`
 - **Purpose**: Detects adjective+noun pairs in chat and posts "I'd clap that adjective noun!" or "I'd clap those adjective noun!" depending on plurality.
 - **Trigger**: Passive — listens to every chat message.
 - **Backend**:
