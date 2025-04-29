@@ -24,6 +24,12 @@ public class CPHInline
     private static readonly bool debugMode = false; // Set to true for debug mode (always trigger)
     private static readonly string nlpCloudApiKey = "YOUR_API_KEY_HERE"; // Replace this with your NLP Cloud API Key
 
+    private class WordInfo
+    {
+        public string Word { get; set; }
+        public string Tag { get; set; }
+    }
+
     public bool Execute()
     {
         return ExecuteAsync().GetAwaiter().GetResult();
@@ -54,22 +60,22 @@ public class CPHInline
 
         CPH.LogDebug("Message triggered! Analyzing text...");
 
-        List<string> words = await AnalyzeTextAsync(inputText);
+        List<WordInfo> words = await AnalyzeTextAsync(inputText);
 
         if (words == null || words.Count == 0)
         {
-            CPH.LogDebug("No nouns or adjectives detected in message.");
+            CPH.LogDebug("No nouns, proper nouns, or adjectives detected in message.");
             return true;
         }
 
-        string wordToReplace = words[rng.Next(words.Count)];
+        var wordToReplace = words[rng.Next(words.Count)];
 
-        CPH.LogDebug($"Replacing word: {wordToReplace}");
+        CPH.LogDebug($"Replacing word: {wordToReplace.Word} (tag: {wordToReplace.Tag})");
 
-        bool plural = wordToReplace.EndsWith("s", StringComparison.OrdinalIgnoreCase);
+        bool plural = wordToReplace.Tag == "NNS" || wordToReplace.Tag == "NNPS";
         string replacement = plural ? "butts" : "butt";
 
-        string funnyText = ReplaceAllOccurrences(inputText, wordToReplace, replacement);
+        string funnyText = ReplaceAllOccurrences(inputText, wordToReplace.Word, replacement);
 
         CPH.LogDebug($"Sending modified message: {funnyText}");
 
@@ -78,7 +84,7 @@ public class CPHInline
         return true;
     }
 
-    private async Task<List<string>> AnalyzeTextAsync(string text)
+    private async Task<List<WordInfo>> AnalyzeTextAsync(string text)
     {
         try
         {
@@ -105,7 +111,7 @@ public class CPHInline
                 CPH.LogDebug($"NLP Cloud raw response: {jsonResponse}");
 
                 var json = JObject.Parse(jsonResponse);
-                var wordsList = new List<string>();
+                var wordsList = new List<WordInfo>();
 
                 var words = json["words"] as JArray;
                 if (words != null)
@@ -114,10 +120,10 @@ public class CPHInline
                     {
                         string word = wordObj.Value<string>("text") ?? "";
                         string tag = wordObj.Value<string>("tag") ?? "";
-                        if (tag.StartsWith("NN") || tag.StartsWith("JJ")) // Nouns or adjectives
+                        if (tag.StartsWith("NN") || tag.StartsWith("JJ")) // Nouns (singular/plural/proper) or adjectives
                         {
-                            wordsList.Add(word);
-                            CPH.LogDebug($"Detected word: {word}");
+                            wordsList.Add(new WordInfo { Word = word, Tag = tag });
+                            CPH.LogDebug($"Detected word: {word} with tag: {tag}");
                         }
                     }
                 }
