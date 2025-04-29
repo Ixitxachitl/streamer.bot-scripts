@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------
-// Project: og_softbot (Streamer.bot plugin)
+// Project: ClapThatBot (Streamer.bot plugin)
 // Description: Randomly detects adjective+noun pairs in Twitch chat and posts "I'd clap that adjective noun!" or "I'd clap those adjective noun!" if plural.
 // Highlights:
 //   - Uses NLP Cloud API for part-of-speech tagging
